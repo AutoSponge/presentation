@@ -3,6 +3,7 @@
 [Mediator Pattern] [1]
 [1]: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#mediatorpatternjavascript
 
+
     var subscribe = function( topic, fn ){
 
         if ( !topics[topic] ){ 
@@ -14,5 +15,5 @@
         return this;
     };
 
-###Maintainability: 117
+###Maintainability: `<code>`117`</code>`
 
