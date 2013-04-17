@@ -1,6 +1,19 @@
 ##Example
 
-[Mediator Pattern] [1][2]
+[Mediator Pattern] [1]
 
-[1]: http://addyosmani.com/largescalejavascript/#mediatorpattern
-[2]: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#mediatorpatternjavascript
+`<code>`
+    var subscribe = function( topic, fn ){
+
+        if ( !topics[topic] ){ 
+          topics[topic] = [];
+        }
+
+        topics[topic].push( { context: this, callback: fn } );
+
+        return this;
+    };
+`</code>`
+
+
+[1]: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#mediatorpatternjavascript
