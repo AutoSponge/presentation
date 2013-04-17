@@ -2,7 +2,7 @@
 
 [Mediator Pattern] [1]
 
-`<code>`
+`<pre><code contenteditable>`
 
     var subscribe = function( topic, fn ){
 
@@ -15,7 +15,7 @@
         return this;
     };
     
-`</code>`
+`</code></pre>`
 
 
 [1]: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#mediatorpatternjavascript
