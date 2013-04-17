@@ -4,7 +4,6 @@
 
 [1]: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#mediatorpatternjavascript
 
-
     var subscribe = function( topic, fn ){
 
         if ( !topics[topic] ){ 
@@ -15,6 +14,4 @@
 
         return this;
     };
-
-###Maintainability: _117_
 
