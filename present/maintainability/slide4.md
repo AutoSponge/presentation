@@ -1,6 +1,7 @@
 ##Example
 
 [Mediator Pattern] [1]
+[1]: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#mediatorpatternjavascript
 
     var subscribe = function( topic, fn ){
 
@@ -13,5 +14,5 @@
         return this;
     };
 
+###Maintainability: 117
 
-[1]: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#mediatorpatternjavascript
