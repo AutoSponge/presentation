@@ -1,6 +1,7 @@
 ##Example
 
-[Mediator Pattern] [1]
+[Mediator Pattern][1]
+
 [1]: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#mediatorpatternjavascript
 
 
