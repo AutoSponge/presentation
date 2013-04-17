@@ -2,8 +2,6 @@
 
 [Mediator Pattern] [1]
 
-`<code>`
-
     var subscribe = function( topic, fn ){
 
         if ( !topics[topic] ){ 
@@ -14,8 +12,6 @@
 
         return this;
     };
-    
-`</code>`
 
 
 [1]: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#mediatorpatternjavascript
