@@ -15,5 +15,5 @@
         return this;
     };
 
-###Maintainability: `<code>`117`</code>`
+###Maintainability: _117_
 
