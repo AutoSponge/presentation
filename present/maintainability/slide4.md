@@ -3,6 +3,7 @@
 [Mediator Pattern] [1]
 
 `<code>`
+
     var subscribe = function( topic, fn ){
 
         if ( !topics[topic] ){ 
@@ -13,6 +14,7 @@
 
         return this;
     };
+    
 `</code>`
 
 
