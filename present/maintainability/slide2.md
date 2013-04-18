@@ -1,5 +1,5 @@
 ##Why Care?
 
-* Show "Hotspots"
-* Encourage SOP
+* "Hotspots"
+* Encourages SOP
 * Manage Costs
