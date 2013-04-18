@@ -14,4 +14,4 @@
 
         return this;
     };
-    //Maintainability: 117
+    //Maintainability: 117 (68%)
