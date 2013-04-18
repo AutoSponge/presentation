@@ -1,4 +1,4 @@
-##Why Use It?
+##Why Care?
 
 * Show "Hotspots"
 * Encourage SOP
