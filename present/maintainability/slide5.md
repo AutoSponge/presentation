@@ -10,5 +10,6 @@
         return topics[topics.length] = subscription;
     }
     function subscribe( topic, fn, reciever ){
-        return addSubscription( getSubscriptions( topic ), createSubscription( handler, reciever ) );
+        return addSubscription( getSubscriptions( topic ), 
+            createSubscription( handler, reciever ) );
     }
