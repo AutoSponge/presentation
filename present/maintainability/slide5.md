@@ -13,3 +13,4 @@
     function subscribe( topic, callback ) {
         return add( getList( topic ), new Subscription( this, callback ) );
     }
+    //Maintainability: 151
