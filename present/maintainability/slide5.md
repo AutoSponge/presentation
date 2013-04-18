@@ -1,15 +1,15 @@
 ##More Maintainable
 
-    function createSubscription( handler, reciever ) {
-        return Function.apply.bind( handler, reciever );
+    function Subscription( context, callback ) {
+        this.context = context;
+        this.callback = callback;
     }
-    function getSubscriptions( topic ) {
-        return topics[topic] = topics[topic] || [];
+    function add( list,  handler ) {
+        return list[list.length] = handler;
     }
-    function addSubscription( topics, subscription ) {
-        return topics[topics.length] = subscription;
+    function getList( topic ) {
+        return ( topics[topic] = topics[topic] || [] );
     }
-    function subscribe( topic, fn, reciever ){
-        return addSubscription( getSubscriptions( topic ), 
-            createSubscription( handler, reciever ) );
+    function subscribe( topic, callback ) {
+        return add( getList( topic ), new Subscription( this, callback ) );
     }
