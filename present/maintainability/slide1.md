@@ -1,4 +1,4 @@
-##What is it?
+##How is it measured?
 
 ###Fuzzy numbers based on:
 * Effort (# of operators and operands)
