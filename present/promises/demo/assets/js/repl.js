@@ -290,12 +290,11 @@ function asyncEvent(n) {
         thenable[timer % 2 ? "resolve" : "reject"](n);
     }, timer );
     return thenable.promise().then(function() {
-            console.log( "done" );
+            console.log( "done " + n );
          }, function() {
-            console.log( "fail" );
+            console.log( "fail " + n );
      });
 }
-//try replacing these with non-promises
 $.when(asyncEvent(1), asyncEvent(2), asyncEvent(3))
     .then(function() {
         console.log( "All done" );
@@ -308,28 +307,127 @@ $.when(asyncEvent(1), asyncEvent(2), asyncEvent(3))
                 title: "jQuery 'race' with $.when",
                 body: function () {
                     /*
-function getTimer() {
-    return Math.floor( 400 + Math.random() * 2000 );
-}
 function asyncEvent(n) {
-    var timer = getTimer(),
+    var timer = Math.floor( 400 + Math.random() * 2000 ),
         thenable = $.Deferred();
     setTimeout( function () {
         thenable[timer % 2 ? "resolve" : "reject"](n);
     }, timer );
-    return thenable.promise().then(function() {
-            console.log( "done" );
+    thenable.then(function(n) {
+            console.log( "fail " + n );
          }, function() {
-            console.log( "fail" );
+            console.log( "done " + n );
      });
+     return thenable.promise();
 }
 //try replacing these with non-promises
 $.when(asyncEvent(1), asyncEvent(2), asyncEvent(3))
-    .then(function() {
-        console.log( "All done" );
-    }, function() {
-        console.log( "Some fail" );
+    .then(function(n) {
+        console.log( "All fail " + n );
+    }, function(n) {
+        console.log( "Some done " + n );
     });
+                     */
+                }
+            }, {
+                title: "jQuery chain/pipe",
+                body: function () {
+                    /*
+function asyncEvent(n) {
+  var timer = Math.floor( 400 + Math.random() * 2000 ),
+      thenable = $.Deferred();
+  setTimeout( function () {
+    var method = timer % 2 ? "resolve" : "reject";
+    console.log( method + " " + n );
+    thenable[method]( n + 1 );
+  }, timer );
+  return thenable.promise();
+}
+asyncEvent(0)
+  .then( asyncEvent )
+  .then( asyncEvent )
+  .then(function ( n ) {
+    console.log( "All done " + n );
+  }, function ( n ) {
+    console.log( "Some failed " + n );
+  });
+                     */
+                }
+            }, {
+                title: "jQuery chain spread",
+                body: function () {
+                    /*
+function asyncEvent(title) {
+    return function (arr) {
+      var timer = Math.floor( 400 + Math.random() * 2000 ),
+          thenable = $.Deferred();
+      setTimeout( function () {
+        var method = timer % 2 ? "resolve" : "reject";
+        arr.push( title );
+        console.log( method + " " + title );
+        thenable[method]( arr );
+      }, timer );
+      return thenable.promise();
+    };
+}
+asyncEvent( "first" )( [] )
+  .then( asyncEvent( "second" ) )
+  .then( asyncEvent( "third" ) )
+  .then(function ( arr ) {
+    console.log( "All done " + arr );
+  }, function ( arr ) {
+    console.log( "Some failed " + arr );
+  });
+                     */
+                }
+            }, {
+                title: "jQuery chain with reduce",
+                body: function () {
+                    /*
+function asyncEvent(n) {
+  var timer = Math.floor( 400 + Math.random() * 2000 ),
+      thenable = $.Deferred();
+  setTimeout( function () {
+    var method = timer % 2 ? "resolve" : "reject";
+    console.log(method + " " + n);
+    thenable[method]( n + 1 );
+  }, timer );
+  return thenable.promise();
+}
+[asyncEvent, asyncEvent].reduce(function (a, b) {
+  return a.then(b)
+}, asyncEvent(0))
+  .then(function ( n ) {
+    console.log( "All done " + n );
+  }, function ( n ) {
+    console.log( "Some failed " + n );
+  });
+                     */
+                }
+            }, {
+                title: "jQuery branching chain",
+                body: function () {
+                    /*
+function asyncEvent(n) {
+  var timer = Math.floor( 400 + Math.random() * 2000 ),
+      thenable = $.Deferred();
+  setTimeout( function () {
+    var method = timer % 2 ? "resolve" : "reject";
+    console.log( method + " " + n );
+    thenable[method]( n + "next >" );
+  }, timer );
+  return thenable.promise();
+}
+asyncEvent("start > ")
+  .then( asyncEvent )
+  .then( function (n) {
+    return $.when(asyncEvent(n + "nextA > "), asyncEvent(n + "nextB > "));
+  })
+  .then(function ( n ) {
+    console.log( "All done " + n );
+  }, function ( n ) {
+    console.log( "Some failed " + n );
+  });
                      */
                 }
             }, {
