@@ -236,12 +236,12 @@ function asyncEvent() {
 
 asyncEvent()
     //fulfilled
-    .then(function() {
+    .then( function() {
         console.log( "done" );
     //rejected
     }, function() {
         console.log( "fail" );
-    });
+    } );
                      */
                 }
             }, {
@@ -254,7 +254,7 @@ function asyncEvent() {
 
     setTimeout( defer[timer % 2 ? "resolve" : "reject"], timer );
 
-    setTimeout(function working() {
+    setTimeout( function working() {
         if ( defer.state() === "pending" ) { //method
             defer.notify( "pending... " );
             setTimeout( working, 500 );
@@ -265,7 +265,7 @@ function asyncEvent() {
 
 asyncEvent()
     //fulfilled
-    .then(function() {
+    .then( function() {
         console.log( "done" );
     //rejected
     }, function() {
@@ -273,7 +273,7 @@ asyncEvent()
     //progress
     }, function() {
         console.log( "pending..." );
-    });
+    } );
                      */
                 }
             }, {
@@ -281,12 +281,12 @@ asyncEvent()
                 body: function () {
                     /*
 //$asyncEvent(n {Any}, succeed {Boolean})
-$.when($asyncEvent(1), $asyncEvent(2), $asyncEvent(3))
-    .then(function() {
+$.when( $asyncEvent(1), $asyncEvent(2), $asyncEvent(3) )
+    .then( function() {
         console.log( "All done" );
     }, function() {
         console.log( "Some fail" );
-    });
+    } );
                      */
                 }
             }, {
@@ -296,15 +296,15 @@ $.when($asyncEvent(1), $asyncEvent(2), $asyncEvent(3))
 //$asyncEvent(n {Any}, succeed {Boolean})
 function race(arr) {
     var defer = $.Deferred();
-    arr.map(function (thenable) {
-        thenable.then(defer.resolve);
-    });
+    arr.map( function (thenable) {
+        thenable.then( defer.resolve );
+    } );
     return defer.promise();
 }
 race( [$asyncEvent(1), $asyncEvent(2), $asyncEvent(3)] )
-    .then(function(n) {
+    .then( function(n) {
         console.log( "Some done " + n );
-    });
+    } );
                      */
                 }
             }, {
@@ -314,15 +314,15 @@ race( [$asyncEvent(1), $asyncEvent(2), $asyncEvent(3)] )
 //$asyncEvent(n {Any}, succeed {Boolean})
 function race(arr) {
     var defer = $.Deferred();
-    arr.map(function (thenable) {
+    arr.map( function (thenable) {
         thenable.then(defer.resolve, defer.reject);
-    });
+    } );
     return defer.promise();
 }
 race( [$asyncEvent(1), $asyncEvent(2), $asyncEvent(3)] )
-    .then(function(n) {
+    .then( function(n) {
         console.log( "Some done " + n );
-    });
+    } );
                      */
                 }
             }, {
@@ -334,16 +334,16 @@ function race(arr) {
     var defer = $.Deferred(),
         count = 0,
         complete = 0;
-    arr.map(function (thenable) {
+    arr.map( function (thenable) {
         count += 1;
         thenable.then( defer.resolve, defer.notify );
-    });
-    defer.progress(function (n) {
+    } );
+    defer.progress( function (n) {
         complete += 1;
         if ( complete === count ) {
             defer.reject( n );
         }
-    });
+    } );
     return defer.promise();
 }
 race( [$asyncEvent( 1 ), $asyncEvent( 2 ), $asyncEvent( 3 )] )
@@ -351,7 +351,7 @@ race( [$asyncEvent( 1 ), $asyncEvent( 2 ), $asyncEvent( 3 )] )
         console.log( "Some done " + n );
     }, function (n) {
         console.log( "All fail " + n );
-    });
+    } );
                      */
                 }
             }, {
@@ -359,16 +359,16 @@ race( [$asyncEvent( 1 ), $asyncEvent( 2 ), $asyncEvent( 3 )] )
                 body: function () {
                     /*
 function $fixedAsyncEvent(n) {
-    return $asyncEvent(n, true);
+    return $asyncEvent( n, true );
 }
 $asyncEvent(0)
   .then( $asyncEvent )
   .then( $asyncEvent )
-  .then(function ( n ) {
+  .then( function ( n ) {
     console.log( "All done " + n );
   }, function ( n ) {
     console.log( "Some failed " + n );
-  });
+  } );
                      */
                 }
             }, {
@@ -378,14 +378,17 @@ $asyncEvent(0)
 function $fixedAsyncEvent(n) {
     return $asyncEvent(n, true);
 }
-[$asyncEvent, $asyncEvent].reduce(function (chain, next) {
+[
+    $asyncEvent,
+    $asyncEvent
+].reduce( function (chain, next) {
   return chain.then(next)
-}, $asyncEvent(0))
+}, $asyncEvent(0) )
   .then(function ( n ) {
     console.log( "All done " + n );
   }, function ( n ) {
     console.log( "Some failed " + n );
-  });
+  } );
                      */
                 }
             }, {
@@ -396,23 +399,23 @@ function spread(arr) {
     var defer = $.Deferred(),
         results = [],
         count = 0;
-    arr.map(function (thenable, i) {
+    arr.map( function (thenable, i) {
         thenable.always( defer.notify.bind( null, i ) );
-    });
-    defer.progress(function ( i, result ) {
+    } );
+    defer.progress( function ( i, result ) {
         results[i] = result;
         count += 1;
         if ( count === arr.length ) {
             defer.resolve( results );
         }
-    });
+    } );
     return defer.promise();
 }
 //$asyncEvent(n {Any}, succeed {Boolean})
 spread( [$asyncEvent( 1 ), $asyncEvent( 2 ), $asyncEvent( 3 )] )
-  .then(function ( arr ) {
+  .then( function ( arr ) {
     console.log( "All settled ", arr );
-  });
+  } );
                      */
                 }
             }, {
@@ -423,26 +426,26 @@ function spread(arr) {
     var defer = $.Deferred(),
         results = [],
         count = 0;
-    arr.map(function (thenable, i) {
+    arr.map( function (thenable, i) {
         var notify = defer.notify.bind( null, i );
         thenable.then( notify, defer.reject );
-    });
-    defer.progress(function ( i, result ) {
+    } );
+    defer.progress( function ( i, result ) {
         results[i] = result;
         count += 1;
         if ( count === arr.length ) {
             defer.resolve( results );
         }
-    });
+    } );
     return defer.promise();
 }
 //$asyncEvent(n {Any}, succeed {Boolean})
 spread( [$asyncEvent( 1 ), $asyncEvent( 2 ), $asyncEvent( 3 )] )
-  .then(function ( arr ) {
+  .then( function ( arr ) {
     console.log( "All done ", arr );
   }, function (n) {
     console.log( "Some failed " + n );
-  });
+  } );
                      */
                 }
             }, {
@@ -451,10 +454,10 @@ spread( [$asyncEvent( 1 ), $asyncEvent( 2 ), $asyncEvent( 3 )] )
                     /*
 var a = new $.Deferred();
 var b = new $.Deferred();
-console.log("same handler? " + a.resolve === b.resolve);
-a.resolve.call(b);
-console.log("a state:" + a.state());
-console.log("b state:" + b.state());
+console.log( "same handler? " + a.resolve === b.resolve );
+a.resolve.call( b );
+console.log( "a state:" + a.state() );
+console.log( "b state:" + b.state() );
                      */
                 }
             }
@@ -465,23 +468,20 @@ console.log("b state:" + b.state());
                 body: function () {
                     /*
 function asyncEvent() {
-
     var defer = Q.defer(),  //static method
         timer = Math.floor( 400 + Math.random() * 2000 );
-
     setTimeout( defer[timer % 2 ? "resolve" : "reject"], timer );
-
     return defer.promise; //property
 }
 
 asyncEvent()
     //fulfilled
-    .then(function() {
+    .then( function() {
         console.log( "done" );
     //rejected
     }, function() {
         console.log( "fail" );
-    });
+    } );
                     */
                 }
             }, {
@@ -489,12 +489,9 @@ asyncEvent()
                 body: function () {
                     /*
 function asyncEvent() {
-
     var defer = Q.defer(),
         timer = Math.floor( 400 + Math.random() * 2000 );
-
     setTimeout( defer[timer % 2 ? "resolve" : "reject"], timer );
-
     setTimeout( function working() {
         if ( defer.promise.isPending() ) { //promise method
             defer.notify();
@@ -503,10 +500,9 @@ function asyncEvent() {
     }, 1 );
     return defer.promise; //property
 }
-
 asyncEvent()
     //fulfilled
-    .then(function() {
+    .then( function() {
         console.log( "done" );
     //rejected
     }, function() {
@@ -514,7 +510,7 @@ asyncEvent()
     //progress
     }, function() {
         console.log( "pending..." );
-    });
+    } );
                     */
                 }
             }, {
@@ -525,11 +521,11 @@ Q.all( [
     QasyncEvent( 1 ),
     QasyncEvent( 2 ),
     QasyncEvent( 3 ),
-] ).then(function (n) {
+] ).then( function (n) {
     console.log( "All done ", n ); //results in order
 }, function (n) {
     console.log( "Some failed " + n);
-});
+} );
                      */
                 }
             }, {
@@ -540,9 +536,9 @@ Q.allSettled( [
     QasyncEvent( 1 ),
     QasyncEvent( 2 ),
     QasyncEvent( 3 ),
-] ).then(function (n) {
+] ).then( function (n) {
     console.log( "All settled ", n ); //results in order
-});
+} );
                      */
                 }
             }, {
@@ -553,11 +549,11 @@ Q.race( [
     QasyncEvent( 1 ),
     QasyncEvent( 2 ),
     QasyncEvent( 3 ),
-] ).then(function (n) {
+] ).then( function (n) {
     console.log( "Some done " + n );
 }, function (n) {
-    console.log( "Some failed " + n);
-});
+    console.log( "Some failed " + n );
+} );
                      */
                 }
             }, {
@@ -569,11 +565,11 @@ Q.race( [
     QasyncEvent,
     QasyncEvent,
 ].reduce( Q.when, 0 )
-    .then(function (n) {
+    .then( function (n) {
         console.log( "All done " + n );
     }, function (n) {
-        console.log( "Some failed " + n);
-    });
+        console.log( "Some failed " + n );
+    } );
                      */
                 }
             }, {
@@ -584,11 +580,11 @@ Q.all( [
     QasyncEvent( 1 ),
     QasyncEvent( 2 ),
     QasyncEvent( 3 ),
-] ).spread(function () {
+] ).spread( function () {
     console.log( "All done ", arguments );
 }, function (n) {
-    console.log( "Some failed " + n);
-});
+    console.log( "Some failed " + n );
+} );
                      */
                 }
             }, {
@@ -599,9 +595,9 @@ Q.allSettled( [
     QasyncEvent( 1 ),
     QasyncEvent( 2 ),
     QasyncEvent( 3 ),
-] ).spread(function () {
+] ).spread( function () {
     console.log( "All done ", arguments );
-});
+} );
                      */
                 }
             }
@@ -617,7 +613,7 @@ function asyncEvent() {
     return new Promise( function(resolve, reject) {
         var timer = Math.floor( 400 + Math.random() * 2000 );
         setTimeout( timer % 2 ? resolve : reject, timer );
-    });
+    } );
 }
 
 asyncEvent()
@@ -667,12 +663,12 @@ Promise.all( [
     ES6asyncEvent( 1 ),
     ES6asyncEvent( 2 ),
     ES6asyncEvent( 3 )
-] ).then(function (n) {
+] ).then( function (n) {
         console.log( "All done ", n );
     },
     function (n) {
-        console.log( "Some failed " + n);
-    });
+        console.log( "Some failed " + n );
+    } );
 
                     */
                 }
@@ -696,7 +692,7 @@ Promise.race( [
                 body: function () {
                     /*
 function fixedES6asyncEvent(n) {
-    return ES6asyncEvent(n, true);
+    return ES6asyncEvent( n, true );
 }
 [
     ES6asyncEvent,
