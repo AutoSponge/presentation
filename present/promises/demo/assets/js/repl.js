@@ -280,22 +280,8 @@ asyncEvent()
                 title: "jQuery 'all' with $.when",
                 body: function () {
                     /*
-function getTimer() {
-    return Math.floor( 400 + Math.random() * 2000 );
-}
-function asyncEvent(n) {
-    var timer = getTimer(),
-        thenable = $.Deferred();
-    setTimeout( function () {
-        thenable[timer % 2 ? "resolve" : "reject"](n);
-    }, timer );
-    return thenable.promise().then(function() {
-            console.log( "done " + n );
-         }, function() {
-            console.log( "fail " + n );
-     });
-}
-$.when(asyncEvent(1), asyncEvent(2), asyncEvent(3))
+//$asyncEvent(n {Any}, succeed {Boolean})
+$.when($asyncEvent(1), $asyncEvent(2), $asyncEvent(3))
     .then(function() {
         console.log( "All done" );
     }, function() {
@@ -304,28 +290,49 @@ $.when(asyncEvent(1), asyncEvent(2), asyncEvent(3))
                      */
                 }
             }, {
-                title: "jQuery 'race' with $.when",
+                title: "jQuery 'race'",
                 body: function () {
                     /*
-function asyncEvent(n) {
-    var timer = Math.floor( 400 + Math.random() * 2000 ),
-        thenable = $.Deferred();
-    setTimeout( function () {
-        thenable[timer % 2 ? "resolve" : "reject"](n);
-    }, timer );
-    thenable.then(function(n) {
-            console.log( "fail " + n );
-         }, function() {
-            console.log( "done " + n );
-     });
-     return thenable.promise();
+//$asyncEvent(n {Any}, succeed {Boolean})
+function race(arr) {
+    var thenable = $.Deferred();
+    arr.map(function (promise) {
+        promise.then(thenable.resolve);
+    });
+    return thenable.promise();
 }
-//try replacing these with non-promises
-$.when(asyncEvent(1), asyncEvent(2), asyncEvent(3))
+race( [$asyncEvent(1), $asyncEvent(2), $asyncEvent(3)] )
     .then(function(n) {
-        console.log( "All fail " + n );
-    }, function(n) {
         console.log( "Some done " + n );
+    });
+                     */
+                }
+            }, {
+                title: "jQuery 'race' with all fail handler",
+                body: function () {
+                    /*
+//$asyncEvent(n {Any}, succeed {Boolean})
+function race(arr) {
+    var thenable = $.Deferred(),
+        count = 0,
+        complete = 0;
+    arr.map(function (promise) {
+        count += 1;
+        promise.then( thenable.resolve, thenable.notify );
+    });
+    thenable.progress(function (n) {
+        complete += 1;
+        if ( complete === count ) {
+            thenable.reject( n );
+        }
+    });
+    return thenable.promise();
+}
+race( [$asyncEvent( 1 ), $asyncEvent( 2 ), $asyncEvent( 3 )] )
+    .then(function(n) {
+        console.log( "Some done " + n );
+    }, function (n) {
+        console.log( "All fail " + n );
     });
                      */
                 }
@@ -333,50 +340,16 @@ $.when(asyncEvent(1), asyncEvent(2), asyncEvent(3))
                 title: "jQuery chain/pipe",
                 body: function () {
                     /*
-function asyncEvent(n) {
-  var timer = Math.floor( 400 + Math.random() * 2000 ),
-      thenable = $.Deferred();
-  setTimeout( function () {
-    var method = timer % 2 ? "resolve" : "reject";
-    console.log( method + " " + n );
-    thenable[method]( n + 1 );
-  }, timer );
-  return thenable.promise();
+function $fixedAsyncEvent(n) {
+    return $asyncEvent(n, true);
 }
-asyncEvent(0)
-  .then( asyncEvent )
-  .then( asyncEvent )
+$asyncEvent(0)
+  .then( $asyncEvent )
+  .then( $asyncEvent )
   .then(function ( n ) {
     console.log( "All done " + n );
   }, function ( n ) {
     console.log( "Some failed " + n );
-  });
-                     */
-                }
-            }, {
-                title: "jQuery chain spread",
-                body: function () {
-                    /*
-function asyncEvent(title) {
-    return function (arr) {
-      var timer = Math.floor( 400 + Math.random() * 2000 ),
-          thenable = $.Deferred();
-      setTimeout( function () {
-        var method = timer % 2 ? "resolve" : "reject";
-        arr.push( title );
-        console.log( method + " " + title );
-        thenable[method]( arr );
-      }, timer );
-      return thenable.promise();
-    };
-}
-asyncEvent( "first" )( [] )
-  .then( asyncEvent( "second" ) )
-  .then( asyncEvent( "third" ) )
-  .then(function ( arr ) {
-    console.log( "All done " + arr );
-  }, function ( arr ) {
-    console.log( "Some failed " + arr );
   });
                      */
                 }
@@ -384,19 +357,12 @@ asyncEvent( "first" )( [] )
                 title: "jQuery chain with reduce",
                 body: function () {
                     /*
-function asyncEvent(n) {
-  var timer = Math.floor( 400 + Math.random() * 2000 ),
-      thenable = $.Deferred();
-  setTimeout( function () {
-    var method = timer % 2 ? "resolve" : "reject";
-    console.log(method + " " + n);
-    thenable[method]( n + 1 );
-  }, timer );
-  return thenable.promise();
+function $fixedAsyncEvent(n) {
+    return $asyncEvent(n, true);
 }
-[asyncEvent, asyncEvent].reduce(function (a, b) {
+[$asyncEvent, $asyncEvent].reduce(function (a, b) {
   return a.then(b)
-}, asyncEvent(0))
+}, $asyncEvent(0))
   .then(function ( n ) {
     console.log( "All done " + n );
   }, function ( n ) {
@@ -405,28 +371,107 @@ function asyncEvent(n) {
                      */
                 }
             }, {
-                title: "jQuery branching chain",
+                title: "jQuery spread",
                 body: function () {
                     /*
-function asyncEvent(n) {
-  var timer = Math.floor( 400 + Math.random() * 2000 ),
-      thenable = $.Deferred();
-  setTimeout( function () {
-    var method = timer % 2 ? "resolve" : "reject";
-    console.log( method + " " + n );
-    thenable[method]( n + "next >" );
-  }, timer );
-  return thenable.promise();
+function spread(arr) {
+    var thenable = $.Deferred(),
+        results = [];
+    arr.map(function (promise) {
+        promise.always( thenable.notify );
+    });
+    thenable.progress(function ( result ) {
+        results.push( result );
+        if ( results.length === arr.length ) {
+            thenable.resolve( results );
+        }
+    });
+    return thenable.promise();
 }
-asyncEvent("start > ")
-  .then( asyncEvent )
+//$asyncEvent(n {Any}, succeed {Boolean})
+spread( [$asyncEvent( 1 ), $asyncEvent( 2 ), $asyncEvent( 3 )] )
+  .then(function ( arr ) {
+    console.log( "All completed " + arr );
+  });
+                     */
+                }
+            }, {
+                title: "jQuery spread with position",
+                body: function () {
+                    /*
+function spread(arr) {
+    var thenable = $.Deferred(),
+        results = [],
+        count = 0;
+    arr.map(function (promise) {
+        promise.always( thenable.notify.bind( null, i ) );
+    });
+    thenable.progress(function ( i, result ) {
+        results[i] = result;
+        count += 1;
+        if ( count === arr.length ) {
+            thenable.resolve( results );
+        }
+    });
+    return thenable.promise();
+}
+//$asyncEvent(n {Any}, succeed {Boolean})
+spread( [$asyncEvent( 1 ), $asyncEvent( 2 ), $asyncEvent( 3 )] )
+  .then(function ( arr ) {
+    console.log( "All completed " + arr );
+  });
+                     */
+                }
+            }, {
+                title: "jQuery branching chain (race)",
+                body: function () {
+                    /*
+function race(arr) {
+    var thenable = $.Deferred();
+    arr.map(function (promise) {
+        promise.then(thenable.resolve);
+    });
+    return thenable.promise();
+}
+$asyncEvent( "start > ", true )
   .then( function (n) {
-    return $.when(asyncEvent(n + "nextA > "), asyncEvent(n + "nextB > "));
+    return race( [
+        $asyncEvent( n + "nextA > " ),
+        $asyncEvent( n + "nextB > " )
+    ] );
   })
-  .then(function ( n ) {
-    console.log( "All done " + n );
-  }, function ( n ) {
-    console.log( "Some failed " + n );
+  .always(function ( n ) {
+    console.log( n + "complete" );
+  });
+                     */
+                }
+            }, {
+                title: "jQuery branching chain (spread)",
+                body: function () {
+                    /*
+function spread(arr) {
+    var thenable = $.Deferred(),
+        results = [];
+    arr.map(function (promise) {
+        promise.always( thenable.notify );
+    });
+    thenable.progress(function ( result ) {
+        results.push( result );
+        if ( results.length === arr.length ) {
+            thenable.resolve( results );
+        }
+    });
+    return thenable.promise();
+}
+$asyncEvent("start > ", true)
+  .then( function (n) {
+    return spread( [
+        $asyncEvent( n + "nextA > " ),
+        $asyncEvent( n + "nextB > " )
+    ] );
+  })
+  .always(function ( arr ) {
+    console.log( arr[0] + "complete" );
   });
                      */
                 }
@@ -590,6 +635,7 @@ asyncEvent()
 
     $(examples).on("click", function (e) {
         cm.setValue( cache[e.target.textContent] );
+        $("#heading" ).text( e.target.textContent );
         e.preventDefault();
     });
 
@@ -597,3 +643,69 @@ asyncEvent()
     Q.stopUnhandledRejectionTracking();
 
 }());
+
+//global helper functions
+function getTimer() {
+    return Math.floor( 400 + Math.random() * 2000 );
+}
+function $asyncEvent(n, succeed) {
+    var timer = getTimer(),
+        thenable = $.Deferred();
+    setTimeout( function () {
+        switch ( succeed ) {
+            case true:
+                thenable.resolve(n);
+                break;
+            case false:
+                thenable.reject(n);
+                break;
+            default:
+                thenable[timer % 2 ? "resolve" : "reject"](n);
+        }
+    }, timer );
+    thenable.then(function(n) {
+        console.log( "done " + n );
+    }, function() {
+        console.log( "fail " + n );
+    });
+    return thenable.promise();
+}
+function QasyncEvent(n, succeed) {
+    var timer = getTimer(),
+        thenable = Q.defer();
+    setTimeout( function () {
+        switch ( succeed ) {
+            case true:
+                thenable.resolve(n);
+                break;
+            case false:
+                thenable.reject(n);
+                break;
+            default:
+                thenable[timer % 2 ? "resolve" : "reject"](n);
+        }
+    }, timer );
+    thenable.then(function(n) {
+        console.log( "done " + n );
+    }, function() {
+        console.log( "fail " + n );
+    });
+    return thenable.promise;
+}
+function ES6asyncEvent(resolve, reject, n, succeed) {
+    return new Promise( function(resolve, reject) {
+        var timer = getTimer();
+        setTimeout( function () {
+            switch ( succeed ) {
+                case true:
+                    resolve(n);
+                    break;
+                case false:
+                    reject(n);
+                    break;
+                default:
+                    (timer % 2 ? "resolve" : "reject")(n);
+            }
+        }, timer );
+    });
+}

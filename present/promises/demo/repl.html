@@ -94,6 +94,10 @@
             <div class="modal-body">
                 <h3>repl (read-eval-print-loop)</h3>
                 <p>
+                    Open the console to see the log messages.  Pressing `ESC` or `ENTER` in the input
+                    area will execute the code snippet.
+                </p>
+                <p>
                     This repl was built with <a href="https://github.com/google/traceur-compiler">traceur-compiler</a>,
                     and <a href="http://codemirror.net/2/">CodeMirror2</a> so you can use ES6 features now!
                     Control the available ES6 options from the "Options" menu.
@@ -121,7 +125,7 @@
     <div class="col-sm-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Input</h3>
+                <h3 id="heading" class="panel-title">Input</h3>
             </div>
             <div class="panel-body">
                 <textarea class="input"></textarea>
