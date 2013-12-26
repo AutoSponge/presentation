@@ -59,7 +59,6 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="repl.html" class="navbar-brand">Promises</a></li>
-                <li><a data-toggle="modal" data-target="#about-modal">About</a></li>
                 <li class="dropdown" id="examples_menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
                     <ul id="examples" class="dropdown-menu">
@@ -69,15 +68,16 @@
                     </ul>
                 </li>
                 <li class="dropdown" id="options_menu">
-                    <a href="#" class="dropdown-toggle option-button" data-toggle="dropdown">Options <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle option-button" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-cog"></span><b class="caret"></b></a>
                     <ul class="dropdown-menu traceur-options">
                     </ul>
                 </li>
-                <li><a href="https://github.com/AutoSponge/presentation">
-                    <img width="24px" src="assets/img/github.png" /> Source</a>
+                <li><a data-toggle="modal" data-target="#about-modal">
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                </a>
                 </li>
                 <li>
-                    <button class="btn btn-xs btn-danger" type="reset">Reset</button>
                 </li>
             </ul>
         </div><!--/.nav-collapse -->
@@ -89,27 +89,49 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">About repl</h4>
+                <h4 class="modal-title" id="myModalLabel">About Promises repl</h4>
             </div>
             <div class="modal-body">
-                <h3>repl (read-eval-print-loop)</h3>
+                <h3>Getting Started:</h3>
+                <ol>
+                    <li>
+                        Open the debugging console.  Otherwise, nothing interesting happens.
+                    </li>
+                    <li>
+                        This repl was built with <a href="https://github.com/google/traceur-compiler">traceur-compiler</a>,
+                        and <a href="http://codemirror.net/2/">CodeMirror2</a> so you can use ES6 features now!
+                        Control the available ES6 options from the options
+                        (<span class="glyphicon glyphicon-cog"></span>) menu.
+                    </li>
+                    <li>
+                        The "Examples" menu contains sample code I made to either get you started.  Code will
+                        execute every time you press <code>ESC</code> or <code>ENTER</code> in the text area.
+                    </li>
+                    <li>
+                        Click the "Promises" link in the top left to reset (page refresh will redisplay the
+                        last code you edited.
+                    </li>
+                    <li>
+                        Credits for included promises libraries:
+                        <ul>
+                            <li>@jquery:
+                                <a href="https://github.com/jquery/jquery" target="_blank">
+                                    jQuery</a>
+                            </li>
+                            <li>@jakearchibald:
+                                <a href="https://github.com/jakearchibald/ES6-Promises" target="_blank">
+                                    ES6-Promises</a>
+                            </li>
+                            <li>@kriskowal:
+                                <a href="https://github.com/kriskowal/q" target="_blank">
+                                    Q</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ol>
                 <p>
-                    Open the console to see the log messages.  Pressing `ESC` or `ENTER` in the input
-                    area will execute the code snippet.
-                </p>
-                <p>
-                    This repl was built with <a href="https://github.com/google/traceur-compiler">traceur-compiler</a>,
-                    and <a href="http://codemirror.net/2/">CodeMirror2</a> so you can use ES6 features now!
-                    Control the available ES6 options from the "Options" menu.
-                    By default, the really cool, stable stuff is already enabled--you're welcome.
-                </p>
-                <p>
-                    The "Examples" menu contains sample code I made to either get you started with your own
-                    experiments or let you bask in the glory of my creation.
-                </p>
-                <p>
-                    The "Reset" button (because there should always be a big, red button) clears the repl and repl
-                    history.
+                    <a href="https://github.com/AutoSponge/presentation">
+                    <img width="24px" src="assets/img/github.png" /> Source</a>
                 </p>
             </div>
             <div class="modal-footer">

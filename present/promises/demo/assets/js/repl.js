@@ -237,10 +237,10 @@ function asyncEvent() {
 asyncEvent()
     //fulfilled
     .then( function() {
-        console.log( "done" );
+        console.log( "%c done ", "background: blue; color: white" );
     //rejected
     }, function() {
-        console.log( "fail" );
+        console.log( "%c fail ", "background: red; color: white" );
     } );
                      */
                 }
@@ -266,13 +266,13 @@ function asyncEvent() {
 asyncEvent()
     //fulfilled
     .then( function() {
-        console.log( "done" );
+        console.log( "%c done ", "background: blue; color: white" );
     //rejected
     }, function() {
-        console.log( "fail" );
+        console.log( "%c failed ", "background: red; color: white" );
     //progress
     }, function() {
-        console.log( "pending..." );
+        console.log( "%c pending...", "background: green; color: white" );
     } );
                      */
                 }
@@ -283,9 +283,9 @@ asyncEvent()
 //$asyncEvent(n {Any}, succeed {Boolean})
 $.when( $asyncEvent(1), $asyncEvent(2), $asyncEvent(3) )
     .then( function() {
-        console.log( "All done" );
+        console.log( "%c All done ", "background: blue; color: white" );
     }, function() {
-        console.log( "Some fail" );
+        console.log( "%c Some fail ", "background: red; color: white" );
     } );
                      */
                 }
@@ -303,7 +303,7 @@ function race(arr) {
 }
 race( [$asyncEvent(1), $asyncEvent(2), $asyncEvent(3)] )
     .then( function(n) {
-        console.log( "Some done " + n );
+        console.log( "%c Some done ", "background: blue; color: white" );
     } );
                      */
                 }
@@ -321,7 +321,9 @@ function race(arr) {
 }
 race( [$asyncEvent(1), $asyncEvent(2), $asyncEvent(3)] )
     .then( function(n) {
-        console.log( "Some done " + n );
+        console.log( "%c Some done ", "background: blue; color: white" );
+    }, function() {
+        console.log( "%c Some fail ", "background: red; color: white" );
     } );
                      */
                 }
@@ -348,9 +350,9 @@ function race(arr) {
 }
 race( [$asyncEvent( 1 ), $asyncEvent( 2 ), $asyncEvent( 3 )] )
     .then(function(n) {
-        console.log( "Some done " + n );
+        console.log( "%c Some done " + n, "background: blue; color: white" );
     }, function (n) {
-        console.log( "All fail " + n );
+        console.log( "%c All fail " + n, "background: red; color: white" );
     } );
                      */
                 }
@@ -358,16 +360,16 @@ race( [$asyncEvent( 1 ), $asyncEvent( 2 ), $asyncEvent( 3 )] )
                 title: "jQuery chain (fail fast)",
                 body: function () {
                     /*
-function $fixedAsyncEvent(n) {
+function fixed$asyncEvent(n) {
     return $asyncEvent( n, true );
 }
 $asyncEvent(0)
   .then( $asyncEvent )
   .then( $asyncEvent )
   .then( function ( n ) {
-    console.log( "All done " + n );
+    console.log( "%c All done " + n, "background: blue; color: white" );
   }, function ( n ) {
-    console.log( "Some failed " + n );
+    console.log( "%c Some failed " + n, "background: red; color: white" );
   } );
                      */
                 }
@@ -375,7 +377,7 @@ $asyncEvent(0)
                 title: "jQuery chain (reduce)",
                 body: function () {
                     /*
-function $fixedAsyncEvent(n) {
+function fixed$asyncEvent(n) {
     return $asyncEvent(n, true);
 }
 [
@@ -385,9 +387,9 @@ function $fixedAsyncEvent(n) {
   return chain.then(next)
 }, $asyncEvent(0) )
   .then(function ( n ) {
-    console.log( "All done " + n );
+    console.log( "%c All done " + n, "background: blue; color: white" );
   }, function ( n ) {
-    console.log( "Some failed " + n );
+    console.log( "%c Some failed " + n, "background: red; color: white" );
   } );
                      */
                 }
@@ -414,7 +416,7 @@ function spread(arr) {
 //$asyncEvent(n {Any}, succeed {Boolean})
 spread( [$asyncEvent( 1 ), $asyncEvent( 2 ), $asyncEvent( 3 )] )
   .then( function ( arr ) {
-    console.log( "All settled ", arr );
+    console.log( "%c All settled " + arr, "background: blue; color: white" );
   } );
                      */
                 }
@@ -442,9 +444,9 @@ function spread(arr) {
 //$asyncEvent(n {Any}, succeed {Boolean})
 spread( [$asyncEvent( 1 ), $asyncEvent( 2 ), $asyncEvent( 3 )] )
   .then( function ( arr ) {
-    console.log( "All done ", arr );
-  }, function (n) {
-    console.log( "Some failed " + n );
+    console.log( "%c All done " + arr, "background: blue; color: white" );
+  }, function ( n ) {
+    console.log( "%c Some failed " + n, "background: red; color: white" );
   } );
                      */
                 }
@@ -475,12 +477,10 @@ function asyncEvent() {
 }
 
 asyncEvent()
-    //fulfilled
     .then( function() {
-        console.log( "done" );
-    //rejected
+        console.log( "%c done ", "background: blue; color: white" );
     }, function() {
-        console.log( "fail" );
+        console.log( "%c fail ", "background: red; color: white" );
     } );
                     */
                 }
@@ -501,15 +501,12 @@ function asyncEvent() {
     return defer.promise; //property
 }
 asyncEvent()
-    //fulfilled
     .then( function() {
-        console.log( "done" );
-    //rejected
+        console.log( "%c done ", "background: blue; color: white" );
     }, function() {
-        console.log( "fail" );
-    //progress
-    }, function() {
-        console.log( "pending..." );
+        console.log( "%c fail ", "background: red; color: white" );
+    }, function () {
+        console.log( "%c pending ", "background: green; color: white" );
     } );
                     */
                 }
@@ -517,27 +514,29 @@ asyncEvent()
                 title: "Q all (fail fast)",
                 body: function () {
                     /*
+//QasyncEvent(n {Any}, succeed {Boolean})
 Q.all( [
     QasyncEvent( 1 ),
     QasyncEvent( 2 ),
     QasyncEvent( 3 ),
 ] ).then( function (n) {
-    console.log( "All done ", n ); //results in order
-}, function (n) {
-    console.log( "Some failed " + n);
-} );
+    console.log( "%c All done " + n, "background: blue; color: white" );
+  }, function ( n ) {
+    console.log( "%c Some failed " + n, "background: red; color: white" );
+  } );
                      */
                 }
             }, {
                 title: "Q allSettled (don't fail)",
                 body: function () {
                     /*
+//QasyncEvent(n {Any}, succeed {Boolean})
 Q.allSettled( [
     QasyncEvent( 1 ),
     QasyncEvent( 2 ),
     QasyncEvent( 3 ),
-] ).then( function (n) {
-    console.log( "All settled ", n ); //results in order
+] ).then( function (arr) {
+    console.log( "%c All settled " + JSON.stringify( arr ), "background: blue; color: white" );
 } );
                      */
                 }
@@ -545,14 +544,15 @@ Q.allSettled( [
                 title: "Q race (fail fast)",
                 body: function () {
                     /*
+//QasyncEvent(n {Any}, succeed {Boolean})
 Q.race( [
     QasyncEvent( 1 ),
     QasyncEvent( 2 ),
     QasyncEvent( 3 ),
 ] ).then( function (n) {
-    console.log( "Some done " + n );
+    console.log( "%c Some done " + n, "background: blue; color: white" );
 }, function (n) {
-    console.log( "Some failed " + n );
+    console.log( "%c Some failed " + n, "background: red; color: white" );
 } );
                      */
                 }
@@ -560,43 +560,48 @@ Q.race( [
                 title: "Q chain (fail fast)",
                 body: function () {
                     /*
+function fixedQasyncEvent(n) {
+    return QasyncEvent( n, true );
+}
 [
     QasyncEvent,
     QasyncEvent,
     QasyncEvent,
 ].reduce( Q.when, 0 )
     .then( function (n) {
-        console.log( "All done " + n );
-    }, function (n) {
-        console.log( "Some failed " + n );
-    } );
+    console.log( "%c All done " + n, "background: blue; color: white" );
+  }, function ( n ) {
+    console.log( "%c Some failed " + n, "background: red; color: white" );
+  } );
                      */
                 }
             }, {
                 title: "Q spread (fail fast)",
                 body: function () {
                     /*
+//QasyncEvent(n {Any}, succeed {Boolean})
 Q.all( [
     QasyncEvent( 1 ),
     QasyncEvent( 2 ),
     QasyncEvent( 3 ),
-] ).spread( function () {
-    console.log( "All done ", arguments );
-}, function (n) {
-    console.log( "Some failed " + n );
-} );
+] ).spread( function (a, b, c) {
+    console.log( "%c All done " + a + b + c, "background: blue; color: white" );
+  }, function ( n ) {
+    console.log( "%c Some failed " + n, "background: red; color: white" );
+  } );
                      */
                 }
             }, {
                 title: "Q spread (don't fail)",
                 body: function () {
                     /*
+//QasyncEvent(n {Any}, succeed {Boolean})
 Q.allSettled( [
     QasyncEvent( 1 ),
     QasyncEvent( 2 ),
     QasyncEvent( 3 ),
-] ).spread( function () {
-    console.log( "All done ", arguments );
+] ).spread( function (a, b, c) {
+    console.log( "%c All done " + JSON.stringify( arguments ), "background: blue; color: white" );
 } );
                      */
                 }
@@ -607,20 +612,18 @@ Q.allSettled( [
                 title: "ES6 basic async function",
                 body: function () {
                     /*
-var log = obj => () => console.log( obj );
-
+var log = msg => () => console.log( msg );
 function asyncEvent() {
     return new Promise( function(resolve, reject) {
         var timer = Math.floor( 400 + Math.random() * 2000 );
         setTimeout( timer % 2 ? resolve : reject, timer );
     } );
 }
-
 asyncEvent()
-    //fulfilled
-    .then( log( "done" ),
-    //rejected
-    log( "fail" ) );
+    .then(
+        () => console.log( "%c done ", "background: blue; color: white" ),
+        () => console.log( "%c fail ", "background: red; color: white" )
+    );
                      */
                 }
             }, {
@@ -628,7 +631,6 @@ asyncEvent()
                 body: function () {
                     /*
 var log = msg => () => console.log( msg );
-
 function asyncEvent() {
     var pending = true,
         progress = null,
@@ -637,7 +639,7 @@ function asyncEvent() {
                 advice = fn => () => {pending = false, fn()};
             setTimeout( timer % 2 ? advice( resolve ) : advice( reject ), timer );
         });
-    thenable.progress = fn => {return progress = fn, promise};
+    thenable.progress = fn => {return progress = fn, thenable};
     setTimeout( function working() {
         if ( pending && progress ) {
             progress();
@@ -648,27 +650,26 @@ function asyncEvent() {
 }
 
 asyncEvent()
-    .progress( log( "pending..." ) )
-    //fulfilled
-    .then( log( "done" ),
-    //rejected
-    log( "fail" ) );
+    .progress( () => console.log( "%c pending... ", "background: green; color: white" ) )
+    .then(
+        () => console.log( "%c done ", "background: blue; color: white" ),
+        () => console.log( "%c fail ", "background: red; color: white" )
+    );
                      */
                 }
             }, {
                 title: "ES6 all (fail fast)",
                 body: function () {
                     /*
+//ES6asyncEvent(n {Any}, succeed {Boolean})
 Promise.all( [
     ES6asyncEvent( 1 ),
     ES6asyncEvent( 2 ),
     ES6asyncEvent( 3 )
-] ).then( function (n) {
-        console.log( "All done ", n );
-    },
-    function (n) {
-        console.log( "Some failed " + n );
-    } );
+] ).then(
+        n => console.log( "%c All done " + n, "background: blue; color: white" ),
+        n => console.log( "%c Some failed " + n, "background: red; color: white" )
+    );
 
                     */
                 }
@@ -676,13 +677,14 @@ Promise.all( [
                 title: "ES6 race (fail fast)",
                 body: function () {
                     /*
+//ES6asyncEvent(n {Any}, succeed {Boolean})
 Promise.race( [
     ES6asyncEvent( 1 ),
     ES6asyncEvent( 2 ),
     ES6asyncEvent( 3 )
 ] ).then(
-        n => console.log( "All done " + n ),
-        n => console.log( "Some failed " + n )
+        n => console.log( "%c All done " + n, "background: blue; color: white" ),
+        n => console.log( "%c Some failed " + n, "background: red; color: white" )
     );
 
                     */
@@ -698,10 +700,12 @@ function fixedES6asyncEvent(n) {
     ES6asyncEvent,
     ES6asyncEvent,
     ES6asyncEvent
-].reduce( (chain, next) => Promise.cast( chain ).then( next ),
-    0 ).then(
-        n => console.log( "All done " + n ),
-        n => console.log( "Some failed " + n )
+].reduce(
+        (chain, next) => Promise.cast( chain ).then( next ),
+        0
+    ).then(
+        n => console.log( "%c All done " + n, "background: blue; color: white" ),
+        n => console.log( "%c Some failed " + n, "background: red; color: white" )
     );
 
                     */
