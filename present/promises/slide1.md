@@ -1,7 +1,11 @@
-##Promise
+##Promise ᕙ(⇀‸↼‶)ᕗ
 
-An object (_promise_) acting as a proxy (_thenable_)
+_An object acting as a proxy (thenable)
+for a result (value/reason) that is initially unknown._
 
-for a result (_value/reason/exception_) that is initially unknown.
+--------
 
-![don't rush] (https://i.chzbgr.com/maxW500/4366936576/hD766C7C7/)
+##ᕙ(″ ⇀‸↼)ᕗ Callback
+
+_A function passed as an argument to another function to
+be executed in the future._
