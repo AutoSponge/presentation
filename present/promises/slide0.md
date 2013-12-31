@@ -1,3 +1,5 @@
-#Promises
+#Promise
 
-Make code that lasts
+##(╯°□°)╯︵ vs. ︵ ╯(°□° ╯)
+
+#Callback
