@@ -21,6 +21,15 @@
 `introduced Deferred Objects`
 
 
+##Librarians Pick a Side
+
+`2012.12.06`
+
+`Promises/A+ 1.0`
+
+`establishes defacto standard`
+
+
 ##Node Elitism
 
 `2012.09.29`
