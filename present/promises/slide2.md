@@ -1,11 +1,11 @@
-##Fight Hype
+##Build Up
 
 
 ##Node Picks a Side
 
 `2010.02.22`
 
-`Node Version 0.1.30`
+[`Node Version 0.1.30`](http://nodejs.org/changelog.html)
 
 * `Major API Changes`
 
@@ -16,18 +16,18 @@
 
 `2011.01.31`
 
-`jQuery Version 1.5`
+[`jQuery Version 1.5`](http://api.jquery.com/category/version/1.5/)
 
 `introduced Deferred Objects`
 
 
-##Librarians Pick a Side
+##Another Champion Is Chosen
 
 `2012.12.06`
 
-`Promises/A+ 1.0`
+[`Promises/A+ 1.0`](http://promises-aplus.github.io/promises-spec/)
 
-`establishes defacto standard`
+`points out shortcomings of jQuery`
 
 
 ##Node Elitism
