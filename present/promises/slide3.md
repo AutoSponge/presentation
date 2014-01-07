@@ -1,5 +1,5 @@
-##Compare
-simple, functional example only
+##Showdown
+(simple, functional example only)
 
 
 ##Callback
@@ -37,9 +37,10 @@ simple, functional example only
       .then( handleResults, handleError );
 
 
-##Promise - Maintainable
+##Promise
+##<span style="color:lightgreen">Maintainable</span>
 
-    // (⌐■_■) remove dependencies and reuse
+        // (⌐■_■) remove dependencies and reuse
     function request( options ) {
         return new Promise( function ( resolve, reject ) {
             var req = http.request( options, resolve );
@@ -57,7 +58,8 @@ simple, functional example only
       .then( handleResults, handleError );
 
 
-##Promise - Testable
+##Promise
+##<span style="color:lightgreen">Testable</span>
 
     function request( options ) {
         return new Promise( function ( resolve, reject ) {
@@ -67,16 +69,17 @@ simple, functional example only
         } ); // (⌐■_■) return values easier to test
     }
     function handleResults( results ) {
-        // do something with results
+            // do something with results
     }
     function handleError( err ) {
-        // do something with err
+            // do something with err
     }
     Promise.all( thingsList.map( createOptions ).map( request ) )
       .then( handleResults, handleError );
 
 
-##Promise - Composable
+##Promise
+##<span style="color:lightgreen">Composable</span>
 
     function request( options ) {
         return new Promise( function ( resolve, reject ) {
@@ -85,7 +88,7 @@ simple, functional example only
             req.end();
         } );
     }
-    // (⌐■_■) wrap it up
+        // (⌐■_■) wrap it up
     function getRequest( fullPath ) {
         var split = url.split( "/" );
         return request( {
@@ -96,7 +99,8 @@ simple, functional example only
     }
 
 
-##Promise - Chainable
+##Promise
+##<span style="color:lightgreen">Chainable</span>
 
     function stringify( obj ) {
         return JSON.stringify( obj );
@@ -117,7 +121,8 @@ simple, functional example only
       .catch( handleError ); // (⌐■_■) so much chain
 
 
-##Promise - Debug
+##Promise
+##<span style="color:indianred">Debug</span>
 
     function request( options ) {
         return new Promise( function ( resolve, reject ) {
@@ -127,7 +132,7 @@ simple, functional example only
         } );
     }
     function handleResults( results ) {
-        // (╯°□°)╯︵ ʞɔɐʇsllɐɔ - distance from invocation, shared handlers
+        // (╯°□°)╯︵ ʞɔɐʇsllɐɔ
     }
     function handleError( err ) {
         // (╯°□°)╯︵ ǝɔɐɹʇ ʞɔɐʇs
@@ -136,7 +141,8 @@ simple, functional example only
       .then( handleResults, handleError );
 
 
-##Promise - Memory
+##Promise
+##<span style="color:indianred">Memory</span>
 
     function request( options ) {
         return new Promise( function ( resolve, reject ) {
@@ -152,19 +158,20 @@ simple, functional example only
         // do something with err
     }
     var resultsPromise = Promise.all( list.map( opts ).map( request ) );
-      // ಠ_ಠ how much data in this array?
-      // how old is this result? ಠ_ಠ
+        // ( ಠ_ಠ) how much data in this array?
+        // how old is this result? (⊙﹏⊙ )
 
 
-##Promise - Side-effects
+##Promise
+##<span style="color:indianred">Side-effects</span>
 
-    //(⌐■_■)
+      // (⌐■_■)
     Promise.all( thingsList.map( createOptions ).map( request ) )
-      .then( appendDataToResults ) // local side-effect
-      .then( stringify )
-      .then( postIds ) // remote side-effect
-      .then( save( "path/receipt.json" ) )
-      .catch( handleError ); // error... retry? ( •_•)>⌐■-■
-
-      // welcome to promise hell  /(.□. \） Ψ-(`_´ # )↝
+      .then( appendDataToResults )  // local side-effect
+      .then( stringify )            //        ↓
+      .then( postIds )              // remote side-effect
+      .then( save( "file" ) )       //        ↓
+      .catch( handleError );        // error... retry? ( •_•)>⌐■-■
+                                    //        ↓
+      // welcome to promise hell!         /(.□. \） Ψ-(`_´ # )↝
 
