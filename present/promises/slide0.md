@@ -21,5 +21,3 @@ JavaScript since 2007
 #this
 
 [http://autosponge.github.io/presentation/promises.html](http://autosponge.github.io/presentation/promises.html)
-
-

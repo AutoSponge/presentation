@@ -67,8 +67,19 @@ _____
 
 ##Venue Change
 
-`2013.09.19, TC39`
+`2013.09.19`
 
 [`ES6 promises-unwrapping`](https://github.com/domenic/promises-unwrapping)
 
-`has consensus`
+`TC39 has consensus`
+
+
+##Place your bets
+
+`2013.12.21`
+
+[`Koa library`](https://github.com/koajs/koa)
+
+`Makers of Express`
+
+`$ npm install koa`
