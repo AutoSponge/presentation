@@ -1,7 +1,7 @@
 ##Build Up
 
 
-##Node Picks a Side
+##In this corner - Node
 
 `2010.02.22`
 
@@ -12,7 +12,7 @@
   - `Promises removed.`
 
 
-##jQuery Picks a Side (sort of)
+##In this corner - jQuery
 
 `2011.01.31`
 
@@ -21,7 +21,7 @@
 `introduced Deferred Objects`
 
 
-##Another Champion Is Chosen
+##Card change
 
 `2012.12.06`
 
@@ -30,7 +30,7 @@
 `points out shortcomings of jQuery`
 
 
-##Node Elitism
+##No Contest
 
 `2012.09.29`
 
