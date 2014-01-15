@@ -1,7 +1,7 @@
-##Build Up
+##Things Heating Up
 
 
-##In this corner - Node
+##Champion - Node
 
 `2010.02.22`
 
@@ -12,7 +12,7 @@
   - `Promises removed.`
 
 
-##In this corner - jQuery
+##Challenger - jQuery
 
 `2011.01.31`
 
@@ -21,7 +21,7 @@
 `introduced Deferred Objects`
 
 
-##Card change
+##New Challenger
 
 `2012.12.06`
 
@@ -34,12 +34,16 @@
 
 `2012.09.29`
 
+[![LXJS 2012 - Mikeal Rogers](http://img.youtube.com/vi/GaqxIMLLOu8/0.jpg)](http://youtu.be/GaqxIMLLOu8#t=06m42s)
+
 `LXJS 2012 - Mikeal Rogers`
 
-<iframe width="853" height="480"
-  src="//www.youtube.com/embed/GaqxIMLLOu8#t=06m42s"
-  frameborder="0" allowfullscreen>
-</iframe>
+
+##Dogma Alert
+
+[![Bret Victor](http://img.youtube.com/vi/8pTEmbeENF4/0.jpg)](http://youtu.be/8pTEmbeENF4?t=29m40s)
+
+`Bret Victor - The Future of Programming`
 
 
 ##Trash Talk
@@ -65,7 +69,7 @@ _____
 [`Callbacks, promises and simplicity`](https://blog.jcoglan.com/2013/04/01/callbacks-promises-and-simplicity/)
 
 
-##Venue Change
+##Press Conference
 
 `2013.09.19`
 
