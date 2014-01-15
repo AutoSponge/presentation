@@ -142,6 +142,24 @@
 
 
 ##Promise
+##<span style="color:lightgreen">Debug</span>
+
+Long Stack Traces ([bluebird](https://github.com/petkaantonov/bluebird/blob/master/API.md#error-rejectedhandler----promise) example)
+
+    Possibly unhandled TypeError: Object #<Console> has no method 'lag'
+        at application.js:8:13
+    From previous event:
+        at Object.<anonymous> (application.js:7:4)
+        at Module._compile (module.js:449:26)
+        at Object.Module._extensions..js (module.js:467:10)
+        at Module.load (module.js:349:32)
+        at Function.Module._load (module.js:305:12)
+        at Function.Module.runMain (module.js:490:10)
+        at startup (node.js:121:16)
+        at node.js:761:3
+
+
+##Promise
 ##<span style="color:indianred">Memory</span>
 
     function request( options ) {
@@ -160,6 +178,19 @@
     var resultsPromise = Promise.all( list.map( opts ).map( request ) );
         // ( ಠ_ಠ) how much data in this array?
         // how old is this result? (⊙﹏⊙ )
+
+
+##Promise
+##<span style="color:lightgreen">Memory</span>
+
+[Gorgi Kosev](http://spion.github.io/posts/why-i-am-switching-to-promises.html) actually measured
+
+    | file                            | time(ms)  | memory(MB)  |
+    |:--------------------------------|:----------|:------------|
+    | callbacks-original.js           |      316  |     34.97   |
+    | callbacks-flattened.js          |      335  |     35.10   |
+    | callbacks-catcher.js            |      355  |     30.20   |
+    | promises-bluebird-generator.js  |      364  |     41.89   |
 
 
 ##Promise

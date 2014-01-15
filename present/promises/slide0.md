@@ -1,25 +1,23 @@
-#Promise
+#Promises
 
 ##(╯°□°)╯ <span>&#8192;&#8192;</span> vs. <span>&#8192;&#8192;</span> ╯(°□° ╯)
 
-#Callback
+#Callbacks
 
 
-#Me
+#Ident
 
-Paul Grenier
-
-[twitter.com/AutoSponge](https://twitter.com/AutoSponge)
-
-[github.com/AutoSponge](https://github.com/AutoSponge)
-
-[autosponge.github.io](http://autosponge.github.io/)
-
-JavaScript since 2007
+    (function ( global ) {
+        global.me = {
+            name   : "Paul Grenier",
+            twitter: "twitter.com/AutoSponge",
+            github : "github.com/AutoSponge",
+            blog   : "autosponge.github.io",
+            notes  : "JavaScripter since 2007"
+        };
+    }( this ) );
 
 
 #this
 
 [http://autosponge.github.io/presentation/promises.html](http://autosponge.github.io/presentation/promises.html)
-
-
