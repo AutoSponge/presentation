@@ -1,8 +1,33 @@
 #Community
 
-- [Identify](#/1/1)
-- [Cultivate](#/1/2)
-- [Organize](#/1/3)
+A group of like-minded individuals who come together for their mutual benefit.
+
+
+#Developer Community
+
+A group of passionate but **lazy** people who come together to build something
+none of them could build alone.
+
+
+#Open Source (OSI)
+
+- Distributed peer review
+- Transparency of process
+- No restrictions on extension
+
+
+#Tools
+
+- GitHub
+- Open Source (OSI)
+- Open Data
+
+
+#Community Development
+
+- Identify
+- Cultivate
+- Organize
 
 
 #Identify
